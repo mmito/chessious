@@ -1,0 +1,536 @@
+@charset 'utf-8';
+@import '../main.scss';
+
+body {
+	background-color: $smoke;
+}
+
+.loadingScreen{
+	
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	background-color: $vermillion;
+	transition-duration: 1s; 
+
+	overflow-y: hidden;
+	max-height: 100%;
+
+	transition-property: all;
+	
+}
+
+.wrapper {
+	
+	display: flex;
+	margin-top: 35vh;
+	margin-left: 31vw;
+	overflow: visible;
+	
+}
+
+.load {
+	
+	-webkit-appearance: none;
+	background: transparent;
+	border: none;
+	color: $yankees;
+	font-family: Niramit;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 7vw;
+	outline: none;
+	opacity: 0.7;
+	
+}
+
+.ng {
+	
+	-webkit-appearance: none;
+	background: transparent;
+	border: none;
+	color: $yankees;
+	font-family: Niramit;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 7vw;
+	outline: none;
+	opacity: 0.7;
+	
+}
+
+.dots {
+	
+	-webkit-appearance: none;
+	background: transparent;
+	border: none;
+	color: $yankees;
+	font-family: Niramit;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 7vw;
+	outline: none;
+	opacity: 0.7;
+	
+}
+
+.horse {
+	
+	width: 7vw;
+	animation: bounce 2s infinite;
+	
+}
+
+.spacer {
+	
+	width: 1vw;
+	
+}
+
+body.gameStarted {
+	
+	> .loadingScreen {
+		
+		top: -100%;
+		bottom: 100%;
+		
+	}
+
+	> .load {
+		
+		display: none;
+		
+	}
+	
+	> .ng {
+		
+		display: none;
+		
+	}
+	
+	
+}
+
+@keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);}	
+	40% {-webkit-transform: translateY(-30px);}
+	60% {-webkit-transform: translateY(-15px);}
+}
+
+#topBg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 50%;
+	background-color: $yankees;
+}
+
+.playerName {
+	position: fixed;
+	font-size: 40pt;
+	transition: .3s;
+
+	&#playerOneName {
+		color: $smoke;
+		left: 3vw;
+		top: 3vw;
+	}
+	
+	&#playerTwoName {
+		color: $yankees;
+		bottom: 3vw;
+		right: 3vw;
+	}
+}
+
+
+#board {
+	
+	position: fixed;
+	top: 10vh;
+	width: 80vh;
+	height: 80vh;
+	left: calc(50% - 40vh);
+	box-shadow: 0 0 0 10px $vermillion;
+	background-image: url('/static/images/board.svg');
+	background-size: cover;
+	display: grid;
+	grid-template-columns: auto auto auto auto auto auto auto auto;
+	grid-template-rows: auto auto auto auto auto auto auto auto;
+	transition: .3s;
+	
+	> .cell {
+		
+		transition: .1s ease;
+
+		&.possibleMove {
+			background-color: rgba(30,200,30,.5);
+
+			&.possibleCapture {
+				background-color: rgba(200,30,30,.5);
+			}
+
+			&.possiblePromotion {
+				background-color: rgba(30,30,200,.5);
+
+				&.possibleCapture{
+					background-color: rgba(125,30,125,.5);
+				}
+
+			}
+
+			&.possibleCastling {
+				background-color: rgba(183, 200, 30, 0.5);
+			}
+
+		}
+
+	}
+
+	> .piece {
+
+		position: absolute;
+		width: 12.5%;
+		height: 12.5%;
+		background-size: 80%;
+		background-repeat: no-repeat;
+		background-position: center;
+		transition:
+			left ease .1s,
+			top ease .1s,
+			transform ease .1s;
+
+		&.draggable {
+			cursor: pointer;
+		}
+
+		&.dragging {
+			transform: scale(1.1);
+			transition:
+				left 0s,
+				top 0s,
+				transform ease .1s;
+			z-index: 1;
+		}
+		
+	}
+
+}
+
+#board > .piece, .graveyard > .cell {
+
+	&.r-w {	background-image: url('/static/images/pieces/r-white.svg'); }
+	&.n-w {	background-image: url('/static/images/pieces/n-white.svg'); }
+	&.b-w {	background-image: url('/static/images/pieces/b-white.svg'); }
+	&.q-w {	background-image: url('/static/images/pieces/q-white.svg'); }
+	&.k-w {	background-image: url('/static/images/pieces/k-white.svg'); }
+	&.p-w {	background-image: url('/static/images/pieces/p-white.svg'); }
+
+	&.r-b {	background-image: url('/static/images/pieces/r-black.svg'); }
+	&.n-b {	background-image: url('/static/images/pieces/n-black.svg'); }
+	&.b-b {	background-image: url('/static/images/pieces/b-black.svg'); }
+	&.q-b {	background-image: url('/static/images/pieces/q-black.svg'); }
+	&.k-b {	background-image: url('/static/images/pieces/k-black.svg'); }
+	&.p-b {	background-image: url('/static/images/pieces/p-black.svg'); }
+
+}
+
+.graveyard {
+	position: fixed;
+	height: 35vh;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-content: flex-start;
+
+	>.cell {
+		width: 10vh;
+		height: 10vh;
+		background-size: 80%;
+		background-repeat: no-repeat;
+		background-position: center;
+		position: relative;
+
+		&::after{
+			background-color: $vermillion;
+			position: absolute;
+			width: 40%;
+			height: 40%;
+			right: 0;
+			top: 0;
+			text-align: center;
+			vertical-align: 150%;
+			border-radius: 50%;
+			color: $smoke;
+		}
+
+		&[piecesCount='2']::after{	content: '2'; }
+		&[piecesCount='3']::after{	content: '3'; }
+		&[piecesCount='4']::after{	content: '4'; }
+		&[piecesCount='5']::after{	content: '5'; }
+		&[piecesCount='6']::after{	content: '6'; }
+		&[piecesCount='7']::after{	content: '7'; }
+		&[piecesCount='8']::after{	content: '8'; }
+
+	}
+
+	&.p1 {
+		top: 10vh;
+		left: calc(50vw + 45vh);
+		right: 5vh;
+	}
+	
+	&.p2 {
+		left: 5vh;
+		right: calc(50vw + 45vh);
+		bottom: 10vh;	
+	}
+
+}
+
+#chatIcon {
+
+	position: fixed;
+	top: 3vh;
+	right: 11vw;
+	width: 4vh;
+	cursor: pointer;
+
+}
+
+#historyIcon {
+
+	position: fixed;
+	top: 3vh;
+	right: 16vw;
+	width: 4vh;
+	cursor: pointer;
+
+}
+
+.sidePanel {
+
+	width: calc(100vh/2.5);
+	height: 80vh;
+	top: 10vh;
+	left: calc(100% + 10vw);
+	position: fixed;
+	transition: .3s;
+	overflow: visible;
+
+	&.chatStarted {
+
+		left: calc(100% - 100vh/2.5 - 10vh);
+
+		> #historyPanel{
+
+			transform: rotateY(180deg);
+	
+		}
+
+		> #chatPanel{
+
+			transform: rotateY(0deg);
+	
+		}
+
+	}
+
+	&.historyStarted {
+
+		left: calc(100% - 100vh/2.5 - 10vh);
+
+		> #chatPanel{
+
+			transform: rotateY(180deg);
+	
+		}
+
+		> #historyPanel{
+
+			transform: rotateY(0deg);
+	
+		}
+
+	}
+
+	&.chatOnTop {
+
+		left: calc(100% - 100vh/2.5 - 10vh);
+
+		> #chatPanel {
+
+			transform: rotateY(180deg);
+
+		}
+
+		> #historyPanel {
+
+			transform: rotateY(0deg);
+
+		}
+
+	}
+
+	&.historyOnTop {
+
+		left: calc(100% - 100vh/2.5 - 10vh);
+
+		> #chatPanel {
+
+			transform: rotateY(0deg);
+
+		}
+
+		> #historyPanel {
+
+			transform: rotateY(180deg);
+
+		}
+
+	}
+
+	> div {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: $smoke;
+		transition: .3s;
+		backface-visibility: hidden;
+		overflow-y: auto;
+
+		&#chatPanel {
+
+			padding-top: 10px;
+
+			> .message {
+				
+				color: $smoke;
+				display: block;
+				max-width: 80%;
+				overflow: visible;
+				padding: 10px;
+				border-radius: 3px;
+				margin-bottom: 20px;
+				overflow-wrap: break-word;
+				word-wrap: break-word;
+				white-space: initial;
+				line-height: 1.3;
+				position: relative;
+
+				&::after{
+					content: "";
+					position: absolute;
+					border-width: 10px;
+					border-style: solid;
+					bottom: -10px;
+				}
+				
+				
+				&.fromYou {
+					margin-left: 5%;
+					background-color: $vermillion;
+					&::after {
+						border-color: transparent $vermillion transparent transparent;
+						right: 0;
+					}
+				}
+				&.fromOpponent{
+					margin-left: 5%;
+					background-color: $midnight;
+					&::after {
+						border-color: transparent transparent transparent $midnight;
+						left: 0;
+					}
+				}
+
+			}
+
+			box-shadow: 0 0 0 10px $midnight;
+			
+		}
+
+		&#historyPanel {
+
+			box-shadow: 0 0 0 10px $vermillion;
+
+		}
+
+	}
+
+}
+
+.movedBoard {
+
+	#board {
+
+		left: calc(50% - 71vh);
+
+	}
+
+	#playerOneName {
+
+		color: $smoke;
+		left: 3vw;
+		top: 5vh;
+		font-size: 30pt;
+
+	}
+
+	#playerTwoName {
+
+		color: $yankees;
+		right: 34vw;
+		bottom: 5vh;
+		font-size: 30pt;
+
+	}
+
+}
+
+@media screen and (max-width: 1080px) {
+
+	//Making board smaller
+
+	#board {
+		
+		top: 15vh;
+		width: 70vh;
+		height: 70vh;
+		left: calc(50% - 35vh);
+
+	}
+
+	//Bringing player names above and below board
+	.playerName {
+		position: fixed;
+		font-size: 20pt;
+		transition: .3s;
+		left: 0;
+		right: 0;
+		text-align: center;
+		line-height: 15vh;
+		
+		&#playerOneName {
+			color: $smoke;
+			top: 0;
+		}
+		
+		&#playerTwoName {
+			color: $yankees;
+			bottom: 0;
+		}
+	}
+
+}

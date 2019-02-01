@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head data-wsport="<%= wsPort %>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Chessious</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Niramit:600">
+<link rel="stylesheet" href="/static/css/main.css">
+<link rel="stylesheet" href="/static/css/pages/game.css">
+<script src="/static/js/chess.js"></script>
+<script src="/static/js/game.js"></script>
+<script src="/static/js/dots-animation.js"></script>
+</head>
+<body>
+	<div id="topBg"></div>
+	<span class="playerName" id="playerOneName">Player 1</span>
+	<span class="playerName" id="playerTwoName">Player 2</span>
+	<div id="board"></div>
+	<div class="graveyard p1">
+		<span class="cell 1" pieceType="empty" piecesCount="0"></span>
+		<span class="cell 2" pieceType="empty" piecesCount="0"></span>
+		<span class="cell 3" pieceType="empty" piecesCount="0"></span>
+		<span class="cell 4" pieceType="empty" piecesCount="0"></span>
+		<span class="cell 5" pieceType="empty" piecesCount="0"></span>
+	</div>
+	<div class="graveyard p2">
+		<span class="cell 1" pieceType="empty" piecesCount="0"></span>
+		<span class="cell 2" pieceType="empty" piecesCount="0"></span>
+		<span class="cell 3" pieceType="empty" piecesCount="0"></span>
+		<span class="cell 4" pieceType="empty" piecesCount="0"></span>
+		<span class="cell 5" pieceType="empty" piecesCount="0"></span>
+	</div>
+	<img id="chatIcon" src="/static/images/chat.svg" alt="Chat"></img>
+	<img id="historyIcon" src="/static/images/history.svg" alt="Previous moves"></img>
+	<div class="sidePanel">
+		<div id="chatPanel">
+		</div>
+		<div id="historyPanel"></div>
+	</div>
+	<div class="loadingScreen">
+		<div class="wrapper">
+			<div class="load">Load</div>
+			<div class="spacer"></div>
+			<img class="horse" src="/static/images/horse.svg" alt="I'm an 'I'.">
+			<div class="spacer"></div>
+			<div class="ng">ng</div>
+			<div class="dots"></div>
+		</div>
+	</div>
+
+</body>
+</html>

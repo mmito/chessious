@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50.473 50.478">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #f6f5f6;
+        stroke-width: 5px;
+      }
+
+      .cls-2 {
+        fill: #f6f5f6;
+      }
+    </style>
+  </defs>
+  <g id="chat_icon" data-name="chat icon" transform="translate(2.5 2.5)">
+    <path id="path10-7" class="cls-1" d="M6.672,6.663A22.732,22.732,0,0,1,40.253,37.238,8.7,8.7,0,0,0,43.9,41.276a2.133,2.133,0,0,1-.615,4.019,11.748,11.748,0,0,1-1.8.135,13.572,13.572,0,0,1-8-2.654A22.731,22.731,0,0,1,6.672,6.663Z" transform="translate(0 0)"/>
+    <g id="g895" transform="translate(14.704 20.744)">
+      <circle id="path886" class="cls-2" cx="2.262" cy="2.262" r="2.262" transform="translate(11.532)"/>
+      <circle id="circle888" class="cls-2" cx="2.262" cy="2.262" r="2.262" transform="translate(5.766)"/>
+      <circle id="circle890" class="cls-2" cx="2.262" cy="2.262" r="2.262"/>
+    </g>
+  </g>
+</svg>

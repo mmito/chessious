@@ -1,0 +1,12 @@
+* {
+  font-family: Niramit, Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*# sourceMappingURL=main.css.map */

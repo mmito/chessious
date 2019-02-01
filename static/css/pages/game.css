@@ -1,0 +1,444 @@
+* {
+  font-family: Niramit, Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body {
+  background-color: #F6F5F6;
+}
+
+.loadingScreen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #d33f49;
+  transition-duration: 1s;
+  overflow-y: hidden;
+  max-height: 100%;
+  transition-property: all;
+}
+
+.wrapper {
+  display: flex;
+  margin-top: 35vh;
+  margin-left: 31vw;
+  overflow: visible;
+}
+
+.load {
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  color: #0b3142;
+  font-family: Niramit;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 7vw;
+  outline: none;
+  opacity: 0.7;
+}
+
+.ng {
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  color: #0b3142;
+  font-family: Niramit;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 7vw;
+  outline: none;
+  opacity: 0.7;
+}
+
+.dots {
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  color: #0b3142;
+  font-family: Niramit;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 7vw;
+  outline: none;
+  opacity: 0.7;
+}
+
+.horse {
+  width: 7vw;
+  animation: bounce 2s infinite;
+}
+
+.spacer {
+  width: 1vw;
+}
+
+body.gameStarted > .loadingScreen {
+  top: -100%;
+  bottom: 100%;
+}
+body.gameStarted > .load {
+  display: none;
+}
+body.gameStarted > .ng {
+  display: none;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-30px);
+  }
+  60% {
+    -webkit-transform: translateY(-15px);
+  }
+}
+#topBg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 50%;
+  background-color: #0b3142;
+}
+
+.playerName {
+  position: fixed;
+  font-size: 40pt;
+  transition: 0.3s;
+}
+.playerName#playerOneName {
+  color: #F6F5F6;
+  left: 3vw;
+  top: 3vw;
+}
+.playerName#playerTwoName {
+  color: #0b3142;
+  bottom: 3vw;
+  right: 3vw;
+}
+
+#board {
+  position: fixed;
+  top: 10vh;
+  width: 80vh;
+  height: 80vh;
+  left: calc(50% - 40vh);
+  box-shadow: 0 0 0 10px #d33f49;
+  background-image: url("/static/images/board.svg");
+  background-size: cover;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto auto auto auto;
+  transition: 0.3s;
+}
+#board > .cell {
+  transition: 0.1s ease;
+}
+#board > .cell.possibleMove {
+  background-color: rgba(30, 200, 30, 0.5);
+}
+#board > .cell.possibleMove.possibleCapture {
+  background-color: rgba(200, 30, 30, 0.5);
+}
+#board > .cell.possibleMove.possiblePromotion {
+  background-color: rgba(30, 30, 200, 0.5);
+}
+#board > .cell.possibleMove.possiblePromotion.possibleCapture {
+  background-color: rgba(125, 30, 125, 0.5);
+}
+#board > .cell.possibleMove.possibleCastling {
+  background-color: rgba(183, 200, 30, 0.5);
+}
+#board > .piece {
+  position: absolute;
+  width: 12.5%;
+  height: 12.5%;
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: left ease 0.1s, top ease 0.1s, transform ease 0.1s;
+}
+#board > .piece.draggable {
+  cursor: pointer;
+}
+#board > .piece.dragging {
+  transform: scale(1.1);
+  transition: left 0s, top 0s, transform ease 0.1s;
+  z-index: 1;
+}
+
+#board > .piece.r-w, .graveyard > .cell.r-w {
+  background-image: url("/static/images/pieces/r-white.svg");
+}
+#board > .piece.n-w, .graveyard > .cell.n-w {
+  background-image: url("/static/images/pieces/n-white.svg");
+}
+#board > .piece.b-w, .graveyard > .cell.b-w {
+  background-image: url("/static/images/pieces/b-white.svg");
+}
+#board > .piece.q-w, .graveyard > .cell.q-w {
+  background-image: url("/static/images/pieces/q-white.svg");
+}
+#board > .piece.k-w, .graveyard > .cell.k-w {
+  background-image: url("/static/images/pieces/k-white.svg");
+}
+#board > .piece.p-w, .graveyard > .cell.p-w {
+  background-image: url("/static/images/pieces/p-white.svg");
+}
+#board > .piece.r-b, .graveyard > .cell.r-b {
+  background-image: url("/static/images/pieces/r-black.svg");
+}
+#board > .piece.n-b, .graveyard > .cell.n-b {
+  background-image: url("/static/images/pieces/n-black.svg");
+}
+#board > .piece.b-b, .graveyard > .cell.b-b {
+  background-image: url("/static/images/pieces/b-black.svg");
+}
+#board > .piece.q-b, .graveyard > .cell.q-b {
+  background-image: url("/static/images/pieces/q-black.svg");
+}
+#board > .piece.k-b, .graveyard > .cell.k-b {
+  background-image: url("/static/images/pieces/k-black.svg");
+}
+#board > .piece.p-b, .graveyard > .cell.p-b {
+  background-image: url("/static/images/pieces/p-black.svg");
+}
+
+.graveyard {
+  position: fixed;
+  height: 35vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.graveyard > .cell {
+  width: 10vh;
+  height: 10vh;
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+.graveyard > .cell::after {
+  background-color: #d33f49;
+  position: absolute;
+  width: 40%;
+  height: 40%;
+  right: 0;
+  top: 0;
+  text-align: center;
+  vertical-align: 150%;
+  border-radius: 50%;
+  color: #F6F5F6;
+}
+.graveyard > .cell[piecesCount="2"]::after {
+  content: "2";
+}
+.graveyard > .cell[piecesCount="3"]::after {
+  content: "3";
+}
+.graveyard > .cell[piecesCount="4"]::after {
+  content: "4";
+}
+.graveyard > .cell[piecesCount="5"]::after {
+  content: "5";
+}
+.graveyard > .cell[piecesCount="6"]::after {
+  content: "6";
+}
+.graveyard > .cell[piecesCount="7"]::after {
+  content: "7";
+}
+.graveyard > .cell[piecesCount="8"]::after {
+  content: "8";
+}
+.graveyard.p1 {
+  top: 10vh;
+  left: calc(50vw + 45vh);
+  right: 5vh;
+}
+.graveyard.p2 {
+  left: 5vh;
+  right: calc(50vw + 45vh);
+  bottom: 10vh;
+}
+
+#chatIcon {
+  position: fixed;
+  top: 3vh;
+  right: 11vw;
+  width: 4vh;
+  cursor: pointer;
+}
+
+#historyIcon {
+  position: fixed;
+  top: 3vh;
+  right: 16vw;
+  width: 4vh;
+  cursor: pointer;
+}
+
+.sidePanel {
+  width: calc(100vh/2.5);
+  height: 80vh;
+  top: 10vh;
+  left: calc(100% + 10vw);
+  position: fixed;
+  transition: 0.3s;
+  overflow: visible;
+}
+.sidePanel.chatStarted {
+  left: calc(100% - 100vh/2.5 - 10vh);
+}
+.sidePanel.chatStarted > #historyPanel {
+  transform: rotateY(180deg);
+}
+.sidePanel.chatStarted > #chatPanel {
+  transform: rotateY(0deg);
+}
+.sidePanel.historyStarted {
+  left: calc(100% - 100vh/2.5 - 10vh);
+}
+.sidePanel.historyStarted > #chatPanel {
+  transform: rotateY(180deg);
+}
+.sidePanel.historyStarted > #historyPanel {
+  transform: rotateY(0deg);
+}
+.sidePanel.chatOnTop {
+  left: calc(100% - 100vh/2.5 - 10vh);
+}
+.sidePanel.chatOnTop > #chatPanel {
+  transform: rotateY(180deg);
+}
+.sidePanel.chatOnTop > #historyPanel {
+  transform: rotateY(0deg);
+}
+.sidePanel.historyOnTop {
+  left: calc(100% - 100vh/2.5 - 10vh);
+}
+.sidePanel.historyOnTop > #chatPanel {
+  transform: rotateY(0deg);
+}
+.sidePanel.historyOnTop > #historyPanel {
+  transform: rotateY(180deg);
+}
+.sidePanel > div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #F6F5F6;
+  transition: 0.3s;
+  backface-visibility: hidden;
+  overflow-y: auto;
+}
+.sidePanel > div#chatPanel {
+  padding-top: 10px;
+  box-shadow: 0 0 0 10px #0f5257;
+}
+.sidePanel > div#chatPanel > .message {
+  color: #F6F5F6;
+  display: block;
+  max-width: 80%;
+  overflow: visible;
+  padding: 10px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  white-space: initial;
+  line-height: 1.3;
+  position: relative;
+}
+.sidePanel > div#chatPanel > .message::after {
+  content: "";
+  position: absolute;
+  border-width: 10px;
+  border-style: solid;
+  bottom: -10px;
+}
+.sidePanel > div#chatPanel > .message.fromYou {
+  margin-left: 5%;
+  background-color: #d33f49;
+}
+.sidePanel > div#chatPanel > .message.fromYou::after {
+  border-color: transparent #d33f49 transparent transparent;
+  right: 0;
+}
+.sidePanel > div#chatPanel > .message.fromOpponent {
+  margin-left: 5%;
+  background-color: #0f5257;
+}
+.sidePanel > div#chatPanel > .message.fromOpponent::after {
+  border-color: transparent transparent transparent #0f5257;
+  left: 0;
+}
+.sidePanel > div#historyPanel {
+  box-shadow: 0 0 0 10px #d33f49;
+}
+
+.movedBoard #board {
+  left: calc(50% - 71vh);
+}
+.movedBoard #playerOneName {
+  color: #F6F5F6;
+  left: 3vw;
+  top: 5vh;
+  font-size: 30pt;
+}
+.movedBoard #playerTwoName {
+  color: #0b3142;
+  right: 34vw;
+  bottom: 5vh;
+  font-size: 30pt;
+}
+
+@media screen and (max-width: 1080px) {
+  #board {
+    top: 15vh;
+    width: 70vh;
+    height: 70vh;
+    left: calc(50% - 35vh);
+  }
+
+  .playerName {
+    position: fixed;
+    font-size: 20pt;
+    transition: 0.3s;
+    left: 0;
+    right: 0;
+    text-align: center;
+    line-height: 15vh;
+  }
+  .playerName#playerOneName {
+    color: #F6F5F6;
+    top: 0;
+  }
+  .playerName#playerTwoName {
+    color: #0b3142;
+    bottom: 0;
+  }
+}
+
+/*# sourceMappingURL=game.css.map */
